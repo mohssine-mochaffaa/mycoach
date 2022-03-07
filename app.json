@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "sportsFinest",
+    "slug": "sportsFinest",
+    "version": "2.5.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon5.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.app.sportsFinest",
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.app.sportsFinest"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
