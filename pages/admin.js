@@ -59,6 +59,7 @@ import { AntDesign } from '@expo/vector-icons';
             coachPass:coachPassword,
             coachEmail:coachEmail,
             img:"",
+            clientsNum:0,
             coachUid: user.uid
           });
           
@@ -164,7 +165,7 @@ import { AntDesign } from '@expo/vector-icons';
         <ScrollView style={{backgroundColor:"#ccc"}}>
     {client.map((user)=> {return(
       <TouchableOpacity onPress={()=> navigation.navigate('Reclamation',{email:user.coachEmail,password:user.coachPass,img:user.img,coach:user.name,uid:user.coachUid})}  style={styles.clients}> 
-      <Text style={{marginLeft:5}}>{user.name}</Text> 
+      <Text style={{marginLeft:5}}>{user.name} ({user.clientsNum})</Text>
       {user.img.length > 5?<Image source={{uri:user.img}} style={{width:50,height:50,borderRadius:50,margin:0,alignSelf:"center",marginBottom:0,borderWidth:2,borderColor:"#f13a11"}}/>:<View style={{margin:10}}><SimpleLineIcons name="user" size={30} color="black" /></View>}
       </TouchableOpacity>
     )})} 

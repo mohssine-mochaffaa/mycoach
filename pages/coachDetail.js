@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View,TouchableOpacity, Modal, Pressable,TextInput,ScrollView, Image, Dimensions,Alert } from 'react-native';
-import {useState} from "react"
+import {useState,useEffect} from "react"
 import { doc, updateDoc,deleteDoc } from "firebase/firestore"; 
+import { getDoc } from "firebase/firestore";
 import db from '../firebase';
 import {getStorage, deleteObject} from "firebase/storage";
 import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
@@ -36,7 +37,8 @@ import { AntDesign } from '@expo/vector-icons';
 
     const [weight,setWeight] = useState('')
     const [coach,setCoach] = useState('')
-    const {name,code,weight2,coach2,img} = route.params;
+    const {name,code,weight2,coach2,img,uid,uid2,cleintNum} = route.params;
+    const [cleintNum2,setCleintNum2] = useState(0);
     const [fatique,setFatique] = useState("");
     const [souplesse,setSouplesse] = useState("");
     const [pomps,setPomps] = useState("");
@@ -59,7 +61,7 @@ import { AntDesign } from '@expo/vector-icons';
     const [imgSelected6,setImgSelected6] = useState(false)
     const [imgSelected7,setImgSelected7] = useState(false)
     const [imgSelected8,setImgSelected8] = useState(false)
-
+ 
     const handleDelete=()=>{
     
       Alert.alert("Supprimer le client",`Vous voulez supprimer ${name}?`,[

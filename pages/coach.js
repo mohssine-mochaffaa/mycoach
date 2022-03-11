@@ -52,6 +52,7 @@ import { getAuth, deleteUser } from "firebase/auth";
   const [resume3,setResume3] = useState("")
   const [coachImage,setCoachImage] = useState('')
   const [imgSelected,setImgSelected] = useState(false)
+  const [cleintNum,setCleintNum] = useState(0)
 
   const {uid,userC} = route.params || uid2;
 
@@ -128,7 +129,7 @@ import { getAuth, deleteUser } from "firebase/auth";
     }
   }
   useEffect(async()=>{
-    const docRef = doc(db, "coach", uid2);
+    const docRef = doc(db, "coach", uid || uid2);
     const docSnap = await  getDoc(docRef);
     if (docSnap) {
       const val = docSnap.data().name
@@ -175,7 +176,7 @@ import { getAuth, deleteUser } from "firebase/auth";
 });
 
   },[])
-  const add=()=>{
+  const add= async()=>{
   const docRef = setDoc(doc(db, "clients" , code), {
   code:code,
   name: name,
@@ -218,6 +219,7 @@ import { getAuth, deleteUser } from "firebase/auth";
   samediT:"",
   dimenchT:"",
 });
+
 setIsVisible(false)
   }
   const addplanning =()=>{
@@ -286,6 +288,31 @@ setIsVisible2(false)
       
     ])
   }
+  useEffect(()=>{
+    const docRef2 = doc(db, "coach" , uid || uid2);
+    updateDoc(docRef2,{
+  clientsNum: client.length, 
+})
+  },[isVisible4])
+  useEffect(()=>{
+    const docRef2 = doc(db, "coach" , uid || uid2);
+    updateDoc(docRef2,{
+  clientsNum: client.length, 
+})
+  },[isVisible])
+  useEffect(()=>{
+    const docRef2 = doc(db, "coach" , uid || uid2);
+    updateDoc(docRef2,{
+  clientsNum: client.length, 
+})
+  },[])
+  useEffect(()=>{
+    const docRef2 = doc(db, "coach" , uid || uid2);
+    updateDoc(docRef2,{
+  clientsNum: client.length, 
+})
+  },[client,client.length])
+  
   return (
     <View style={styles.container}>
             <View style={styles.row1}><TouchableOpacity><Text style={styles.row1Text}>{coach}</Text></TouchableOpacity><View style={styles.row1But3}><Image style={{width:46,height:40,borderRadius:5}} source={{uri:coachImage}}/></View></View>
@@ -296,7 +323,7 @@ setIsVisible2(false)
     <View style={styles.row1}><Text style={styles.row1Text}>Clients ({client.length})</Text></View>
     <ScrollView style={{backgroundColor:"#ccc",marginBottom:50}}>
     {client.map((user)=> {return(
-      <TouchableOpacity onPress={()=> navigation.navigate('Details',{name:user.name,code:user.code,weight2:user.weight,coach2:user.coach,img:user.img})} style={styles.clients}> 
+      <TouchableOpacity onPress={()=> navigation.navigate('Details',{name:user.name,code:user.code,weight2:user.weight,coach2:user.coach,img:user.img,uid2:uid2,uid:uid,cleintNum:cleintNum})} style={styles.clients}> 
         <Text>{user.name}</Text> 
         <Text>{user.age} years old</Text>
       </TouchableOpacity>
