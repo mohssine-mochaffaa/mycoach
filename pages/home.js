@@ -22,6 +22,7 @@ import { MaterialIcons } from '@expo/vector-icons';
    const [warnning,setWarnning] = useState("none")
    const [warnning2,setWarnning2] = useState("none")
    const [warnning3,setWarnning3] = useState("none")
+   const [home,setHome] = useState('')
 
 
 
@@ -58,6 +59,7 @@ const auth = getAuth()
     }
     else{
       console.log("nop")
+      setWarnning3('flex');
     }
   }
   useEffect(async () => {
@@ -82,6 +84,28 @@ const auth = getAuth()
       console.log("No such document!");
     }
   },[isVisible2])
+  useEffect(async () => {
+    const docRef = doc(db, "admin", "homeImg");
+    const docSnap = await  getDoc(docRef);
+    if (docSnap) {
+      const val = docSnap.data().src
+      setHome(val)
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  },[])
+  useEffect(async () => {
+    const docRef = doc(db, "admin", "homeImg");
+    const docSnap = await  getDoc(docRef);
+    if (docSnap) {
+      const val = docSnap.data().src
+      setHome(val)
+    } else { 
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  },[isVisible2])
   const loginClient= async()=>{
     const docRef = doc(db, "clients", clientPassword);
     const docSnap = await  getDoc(docRef);
@@ -98,22 +122,28 @@ const auth = getAuth()
     
   }
 
+const goBack=()=>{
+  setIsVisible2(false);
+  setWarnning3('none')
+}
   
   return (
     <View style={styles.container}> 
-    <Image source={require('../assets/coachApp2.jpeg')} style={{width:100,height:100,borderRadius:100,marginTop:15,marginBottom:15}}/> 
+    <Image source={require('../assets/coachApp2.jpeg')} style={{width:100,height:100,borderRadius:100,marginTop:10,marginBottom:0}}/> 
+    <View style={{flexDirection:"row",marginBottom:10}}><Text style={{fontSize:24,fontWeight:"bold",fontFamily:"serif"}}>sports</Text><Text style={{fontSize:24,fontWeight:"bold",color:'#f13a11',fontFamily:"serif",letterSpacing:1}}> finest</Text></View>
     <View style={styles.containerflex}>  
     <Text style={styles.introText}>SIGN IN</Text>  
     <TouchableOpacity onPress={()=> setIsVisible3(true) || setWarnning2("none")} style={styles.but2}><Text style={styles.but2Text}>CLIENT</Text></TouchableOpacity>
     <TouchableOpacity onPress={()=> setIsVisible(true) || setWarnning("none")  } style={styles.but1}><Text style={styles.but1Text}>COACH</Text></TouchableOpacity>
     <TouchableOpacity onPress={()=> setIsVisible2(true)} style={styles.but1}><Text style={styles.but1Text}>ADMIN</Text></TouchableOpacity>
     </View>
-    <Image source={require('../assets/imgbg.jpeg')} style={{width:"100%",flex:1,resizeMode:"cover"}}/> 
-
-    <Modal animationType="fade" visible={isVisible2} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
-    <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible2(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
+    <Image source={{uri:home}} style={{width:Dimensions.get('window').width,flex:1,resizeMode:"center"}}/> 
+ 
+    <Modal animationType="fade" visible={isVisible2} transparent={false} style={{justifyContent:"center",alignItems:"center"}}> 
+    <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={goBack}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
      <View style={styles.modal}>
      <Text style={styles.introModal}>Admin</Text>
+     <View style={{borderColor:"red",borderWidth:1,backgroundColor:"red",display:warnning3,alignItems:"center",justifyContent:"center",padding:10}}><Text style={{color:"white",fontWeight:"bold"}}>Invalid password</Text></View>
      <TextInput onChangeText={(e)=> setAdminPass(e)} style={styles.input} placeholder='Password'/>
      <TouchableOpacity onPress={login2} style={styles.login}><Text style={styles.loginText}>Login</Text></TouchableOpacity>
      </View>
@@ -152,20 +182,19 @@ const styles = StyleSheet.create({
     flex:0,
     width:"90%",
     backgroundColor:'#f13a11',
-    borderRadius:0,
-    borderBottomEndRadius:0,
-    borderBottomStartRadius:0,
-    bottom:"0%",
-    paddingBottom:5,
-    marginBottom:5
+    borderRadius:5,
+    borderBottomEndRadius:5,
+    borderBottomStartRadius:5,
+    paddingBottom:10,
+    marginBottom:0
    
     
   },
   but1:{
     backgroundColor:'white', 
-    padding:15,
+    padding:12,
     alignSelf:'center',
-    width:"90%",
+    width:"80%",
     margin:17,
     paddingLeft:30,
     paddingRight:30,
@@ -176,8 +205,8 @@ const styles = StyleSheet.create({
   },
   but2:{
     backgroundColor:'white',
-    width:"90%",
-    padding:15,
+    width:"80%",
+    padding:12,
     alignSelf:'center',
     margin:17,
     paddingLeft:30,
@@ -190,18 +219,18 @@ const styles = StyleSheet.create({
   but1Text:{
     color:"black",
     fontWeight:"bold",
-    fontSize:20,
+    fontSize:17,
     alignSelf:"center"
 
   },
   but2Text:{
     color:"black",
     fontWeight:"bold",
-    fontSize:20,
+    fontSize:17,
     alignSelf:"center"
   },
   introText:{
-    fontSize:20,
+    fontSize:19,
     fontWeight:"bold",
     color:'white',
     fontFamily:"serif",

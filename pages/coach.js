@@ -48,6 +48,8 @@ import { getAuth, deleteUser } from "firebase/auth";
   const [client,setClien] = useState([])
   const [uid2,setUid2] = useState("")
   const [resume,setResume] = useState("")
+  const [resume2,setResume2] = useState("")
+  const [resume3,setResume3] = useState("")
   const [coachImage,setCoachImage] = useState('')
   const [imgSelected,setImgSelected] = useState(false)
 
@@ -242,9 +244,22 @@ setIsVisible2(false)
   
   const addResume=()=>{
     const docRef = doc(db, "coach" , uid2);
-  updateDoc(docRef, {
-      resume: resume
-    }); 
+    if (resume.length > 2) {
+      updateDoc(docRef, {
+        resume: resume,
+        
+      }); 
+    }
+    if (resume2.length > 2) {
+      updateDoc(docRef, {
+        resumePhone: resume2,
+      }); 
+    }
+    if (resume3.length > 2) {
+      updateDoc(docRef, {
+        resumeExp: resume3
+      }); 
+    }
     setIsVisible4(false)
   }
   const handleDelete=()=>{
@@ -277,8 +292,8 @@ setIsVisible2(false)
 
         <View style={styles.row1}><TouchableOpacity><Text style={styles.row1Text}>Profile</Text></TouchableOpacity><TouchableOpacity onPress={()=> setIsVisible4(true)} style={styles.row1But2}><Ionicons name="newspaper" size={24} color="#ff5d00" /></TouchableOpacity></View>
 
-    <View style={styles.row1}><TouchableOpacity><Text style={styles.row1Text}>New client</Text></TouchableOpacity><TouchableOpacity onPress={()=> setIsVisible(true)} style={styles.row1But2}><FontAwesome name="user-plus" size={23} color="#ff5d00" /></TouchableOpacity></View>
-    <View style={styles.row1}><Text style={styles.row1Text}>All clients ({client.length})</Text></View>
+    <View style={styles.row1}><TouchableOpacity><Text style={styles.row1Text}>Nouveau client</Text></TouchableOpacity><TouchableOpacity onPress={()=> setIsVisible(true)} style={styles.row1But2}><FontAwesome name="user-plus" size={23} color="#ff5d00" /></TouchableOpacity></View>
+    <View style={styles.row1}><Text style={styles.row1Text}>Clients ({client.length})</Text></View>
     <ScrollView style={{backgroundColor:"#ccc",marginBottom:50}}>
     {client.map((user)=> {return(
       <TouchableOpacity onPress={()=> navigation.navigate('Details',{name:user.name,code:user.code,weight2:user.weight,coach2:user.coach,img:user.img})} style={styles.clients}> 
@@ -291,12 +306,12 @@ setIsVisible2(false)
     <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
      <ScrollView>
      <View style={styles.modal}>
-     <Text style={styles.introModal}>New client</Text>
-     <TextInput onChangeText={(e)=> setName(e)} style={styles.input} placeholder='Name'/>
+     <Text style={styles.introModal}>Nouveau client</Text>
+     <TextInput onChangeText={(e)=> setName(e)} style={styles.input} placeholder='Nom'/>
      <TextInput onChangeText={(e)=> setCode(e)} style={styles.input} placeholder='Code ID'/>
      <TextInput onChangeText={(e)=> setAge(e)} style={styles.input} placeholder='Age'/>
      <TextInput onChangeText={(e)=> setGander(e)} style={styles.input} placeholder='Gander'/>
-     <TouchableOpacity onPress={add} style={styles.login}><Text style={styles.loginText}>ADD</Text></TouchableOpacity>
+     <TouchableOpacity onPress={add} style={styles.login}><Text style={styles.loginText}>Ajouter</Text></TouchableOpacity>
      </View>
      </ScrollView>
      </Modal>
@@ -321,9 +336,12 @@ setIsVisible2(false)
      <ScrollView style={{width:"100%"}}>
      <View style={styles.modal}>
      <Text style={styles.introModal}>PROFILE</Text> 
-     <TouchableOpacity onPress={pickImage} style={{backgroundColor:"green",padding:10,marginBottom:10,paddingLeft:15,paddingRight:15,borderRadius:3}}>{!imgSelected?<Text style={{color:"white"}}>New Image</Text>:<View style={{flexDirection:"row",alignItems:"center"}}><Text style={{color:"white"}}>New Image</Text><AntDesign style={{marginLeft:5}} name="checkcircleo" size={24} color="white" /></View>}</TouchableOpacity>
-     <TextInput onChangeText={(e)=>setResume(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10}} placeholder='coach resume'/>
-     <TouchableOpacity onPress={addResume} style={styles.login}><Text style={styles.loginText}>Add Profile</Text></TouchableOpacity>
+     <TouchableOpacity onPress={pickImage} style={{backgroundColor:"green",padding:10,marginBottom:10,paddingLeft:15,paddingRight:15,borderRadius:3}}>{!imgSelected?<Text style={{color:"white"}}>Image de profile</Text>:<View style={{flexDirection:"row",alignItems:"center"}}><Text style={{color:"white"}}>Image de profile</Text><AntDesign style={{marginLeft:5}} name="checkcircleo" size={24} color="white" /></View>}</TouchableOpacity>
+     <TextInput onChangeText={(e)=>setResume2(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10,marginBottom:15}} placeholder='Telephone'/>
+     <TextInput onChangeText={(e)=>setResume(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10,marginBottom:15}} placeholder='coach resume'/>
+     <TextInput onChangeText={(e)=>setResume3(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10,marginBottom:15}} placeholder='Experience'/>
+
+     <TouchableOpacity onPress={addResume} style={styles.login}><Text style={styles.loginText}>Enregistrer</Text></TouchableOpacity>
      </View>
      </ScrollView>
      </Modal>
@@ -390,6 +408,7 @@ const styles = StyleSheet.create({
     height:50,
     paddingLeft:10,
     margin:10,
+    marginBottom:15
   },
   input2:{
     borderWidth:1, 

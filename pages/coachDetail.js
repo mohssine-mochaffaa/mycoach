@@ -62,9 +62,9 @@ import { AntDesign } from '@expo/vector-icons';
 
     const handleDelete=()=>{
     
-      Alert.alert("Delete account",`Delete ${name} account `,[
-        {text:"No", onPress:()=> console.log("no")},
-        {text:"yes", onPress: async()=> {
+      Alert.alert("Supprimer le client",`Vous voulez supprimer ${name}?`,[
+        {text:"Non", onPress:()=> console.log("no")},
+        {text:"Supprimer", onPress: async()=> {
           setIsVisible8(true)
           const storage = getStorage();
           const desertRefNom = ref(storage, `${name}.jpg`);
@@ -430,14 +430,14 @@ import { AntDesign } from '@expo/vector-icons';
     <View>
           {img? <Image source={{uri:img}} style={{width:180,height:180,borderRadius:90,margin:0,justifyContent:"center",alignSelf:"center",marginTop:10}}/> : <View style={{width:180,height:180,borderRadius:90,margin:0,backgroundColor:"gray",justifyContent:"center",alignSelf:"center",marginTop:10}}></View>}
         </View>
-        <View style={styles.row1}><View><Text style={styles.row1Text}>Name</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{name}</Text></TouchableOpacity></View>
-        <View style={styles.row1}><View><Text style={styles.row1Text}>Password</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{code}</Text></TouchableOpacity></View>
+        <View style={styles.row1}><View><Text style={styles.row1Text}>Nom</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{name}</Text></TouchableOpacity></View>
+        <View style={styles.row1}><View><Text style={styles.row1Text}>Mot de pass</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{code}</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Coach</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{coach2}</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Diagnostique de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Nutrition de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible9(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Test formative {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible2(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Planning de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible3(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
-        <View style={styles.row1}><View><Text style={styles.row1Text}>Delete account</Text></View><TouchableOpacity onPress={deleteAccount}><Text style={styles.row1Weight2}>Delete</Text></TouchableOpacity></View>
+        <View style={styles.row1}><View><Text style={styles.row1Text}>Supprimer le client</Text></View><TouchableOpacity onPress={deleteAccount}><Text style={styles.row1Weight2}>Supprimer</Text></TouchableOpacity></View>
 
         <Modal animationType="fade" visible={isVisible} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
         <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>

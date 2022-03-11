@@ -9,8 +9,9 @@ import { Feather } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SimpleLineIcons } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
+import { Entypo } from '@expo/vector-icons';
 
 import db from '../firebase';
 import {getStorage} from "firebase/storage";
@@ -35,6 +36,8 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [city2,setCity2] = useState('')
   const [email2,setEmail2] = useState('')
   const [resume,setResume] = useState('')
+  const [resume2,setResume2] = useState('')
+  const [resume3,setResume3] = useState('')
   const [isVisible,setIsVisible] = useState(false)
   const [isVisible5,setIsVisible5] = useState(false)
   const [isVisible6,setIsVisible6] = useState(false)
@@ -127,6 +130,8 @@ useEffect(async()=>{
 if (docSnap) {
   const data = docSnap.data(); 
   setResume(data.resume)
+  setResume2(data.resumePhone)
+  setResume3(data.resumeExp)
   setCoachImage(data.img)
   setCoach(data.name)
 } else {
@@ -297,7 +302,7 @@ const reclamer=()=>{
       <Text style={{fontSize:18,margin:5,marginLeft:12,fontWeight:"bold"}}>{nom}</Text>
       <View style={{flexDirection:"row",alignItems:"center"}}>
       <TouchableOpacity style={{backgroundColor:"#f13a11",padding:6,borderRadius:5}} onPress={()=> setIsVisible(true)}><Text style={{color:"white"}}>EDIT PROFILE</Text></TouchableOpacity> 
-     <Pressable onPress={()=> setIsVisible5(true)}>{image?<Image source={{uri:image}} style={{width:55,height:55,borderRadius:50,margin:5}}/>:<View style={{margin:10}}><SimpleLineIcons name="user" size={30} color="black" /></View>}</Pressable>
+     <Pressable onPress={()=> setIsVisible5(true)}>{image?<Image source={{uri:image}} style={{width:75,height:75,borderRadius:50,margin:5}}/>:<View style={{margin:10}}><SimpleLineIcons name="user" size={30} color="black" /></View>}</Pressable>
       </View> 
     </View>
     <View  style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",width:Dimensions.get('window').width,backgroundColor:"white"}}>
@@ -321,9 +326,16 @@ const reclamer=()=>{
 
     <View style={styles.coach}>
     {coachImage.length > 5?<Image source={{uri:coachImage}} style={{width:"100%",height:250,borderRadius:0,margin:0,alignSelf:"center",marginBottom:5,borderWidth:2,borderColor:"#f13a11",resizeMode:"center"}}/>:<View></View>}
-     <Text style={{fontSize:21,marginBottom:10,fontWeight:"bold",color:"white",marginLeft:5,marginTop:5}}>{coach}</Text>
-     {resume.length > 4 ?<Text style={{fontSize:16,marginBottom:10,color:"white",marginLeft:10}}>{resume}</Text> : <View></View>} 
-     </View>
+<View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}><View><Text style={{fontSize:21,marginBottom:10,fontWeight:"bold",color:"white",marginLeft:10,marginTop:5}}>{coach}</Text></View><View style={{flexDirection:"row",alignItems:"center",marginRight:5}}><Text style={{color:"white",fontWeight:"bold",marginRight:3}}>(23)</Text><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Text style={{fontWeight:"bold",marginLeft:3,marginRight:3,color:"white"}}>4.6</Text></View></View>
+<View style={{flexDirection:"row",marginLeft:3}}><Feather name="phone" size={24} color="white" /><Text style={{color:"white",fontSize:21,marginLeft:5}}>Téléphone:</Text></View>
+     {resume2.length > 4 ?<Text style={{fontSize:16,marginBottom:10,color:"white",marginLeft:10}}>{resume2}</Text> : <View></View>} 
+<View style={{flexDirection:"row"}}><MaterialCommunityIcons name="file-account-outline" size={28} color="white" /><Text style={{color:"white",fontSize:21,marginLeft:5}}>Resumé:</Text></View>
+     {resume.length > 4 ?<Text style={{fontSize:16,marginBottom:10,color:"white",marginLeft:10}}>{resume}</Text> : <View></View>}
+<View style={{flexDirection:"row",marginLeft:5}}><FontAwesome5 name="user-graduate" size={24} color="white" /><Text style={{color:"white",fontSize:21,marginLeft:7}}>Expériences:</Text></View>
+     {resume3.length > 4 ?<Text style={{fontSize:16,marginBottom:10,color:"white",marginLeft:10}}>{resume3}</Text> : <View></View>} 
+ 
+
+   </View>
 
 
     <Modal animationType="fade" visible={isVisible} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
