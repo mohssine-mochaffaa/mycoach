@@ -17,7 +17,7 @@ import db from '../firebase';
 import {getStorage} from "firebase/storage";
 import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
 
- const Client =({route})=> {
+ const Client =({route,navigation})=> {
   const {uid,code} = route.params;
   const[image,setImage] = useState('')
   const[image2,setImage2] = useState('')
@@ -57,6 +57,7 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [color5,setColor5] = useState("black")
   const [color6,setColor6] = useState("black")
   const [reclame,setReclame] = useState("")
+  const [date,setDate] = useState("");
   const [fatique,setFatique] = useState("");
   const [souplesse,setSouplesse] = useState("");
   const [pomps,setPomps] = useState("");
@@ -76,6 +77,24 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [isLoading,setIsLoading] = useState(true);
   const [imgSelected,setImgSelected] = useState(false)
 
+  const [grasse,setGrasse] = useState(null)
+  const [fat,setFat] = useState(null)
+  const [hydra,setHydra] = useState(null)
+  const [muscle,setMuscle] = useState(null)
+  const [osseuse,setOsseuse] = useState(null)
+  const [tmb,setTmb] = useState(null)
+  const [amr,setAmr] = useState(null)
+  const [kcal,setKcal] = useState(0)
+
+  const [bon,setBon] = useState('');
+  const [mobileFact,setMobileFac] = useState("")
+  const [dateFac,setDateFac] = useState('')
+  const [desc,setDesc] = useState("")
+  const [prix,setPrix] = useState("");
+  const [qte,setQte] = useState("")
+  const [desc2,setDesc2] = useState("")
+  const [prix2,setPrix2] = useState("");
+  const [qte2,setQte2] = useState("")
 
 
    const [planning2,setPlanning2] = useState([]);
@@ -151,6 +170,14 @@ if (docSnap) {
   setImage4(data.img3)
   setImage5(data.img4)
 
+  setGrasse(data.masseGrass)
+  setFat(data.visceralFat)
+  setHydra(data.hydration)
+  setMuscle(data.masseMusculaire)
+  setOsseuse(data.masseOsseuse)
+  setAmr(data.amr)
+  setTmb(data.tmb)
+
   setNom(data.name)
   setPhone(data.phone)
   setEmail(data.email)
@@ -161,6 +188,7 @@ if (docSnap) {
   setPomps(data.pompes)
   setSouplesse(data.souplesse)
   setFatique(data.fatique)
+  setDate(data.date)
   setRuffier(data.ruffier)
   setNutrition(data.nutrition)
   setNutrition2(data.nutrition2)
@@ -181,6 +209,16 @@ if (docSnap) {
   setForm(data.form);
   setFormDate(data.formDate); 
 
+  setKcal(data.kcal)
+  setBon(data.bonFac)
+  setMobileFac(data.mobileFac)
+  setDateFac(data.dateFac)
+  setDesc(data.desc)
+  setPrix(data.prix)
+  setQte(data.qte)
+  setDesc2(data.desc2)
+  setPrix2(data.prix2)
+  setQte2(data.qte2)
 
   
 } else {
@@ -223,6 +261,27 @@ if (docSnap) {
   setNutrition7(data.nutrition7)
   setForm(data.form);
   setFormDate(data.formDate);
+  setDate(data.date)
+
+  setGrasse(data.masseGrass)
+  setFat(data.visceralFat)
+  setHydra(data.hydration)
+  setMuscle(data.masseMusculaire)
+  setOsseuse(data.masseOsseuse)
+  setAmr(data.amr)
+  setTmb(data.tmb)
+  setKcal(data.kcal)
+  setBon(data.bonFac)
+  setMobileFac(data.mobileFac)
+  setDateFac(data.dateFac)
+  setDesc(data.desc)
+  setPrix(data.prix)
+  setQte(data.qte)
+  setDesc2(data.desc2)
+  setPrix2(data.prix2)
+  setQte2(data.qte2)
+
+
 
 } else {
   // doc.data() will be undefined in this case
@@ -278,6 +337,26 @@ if (docSnap) {
   setImagee5(data.img8)
   setForm(data.form);
   setFormDate(data.formDate);
+  setDate(data.date)
+  setGrasse(data.masseGrass)
+  setFat(data.visceralFat)
+  setHydra(data.hydration)
+  setMuscle(data.masseMusculaire)
+  setOsseuse(data.masseOsseuse)
+  setAmr(data.amr)
+  setTmb(data.tmb)
+  setKcal(data.kcal)
+  setBon(data.bonFac)
+  setMobileFac(data.mobileFac)
+  setDateFac(data.dateFac)
+  setDesc(data.desc)
+  setPrix(data.prix)
+  setQte(data.qte) 
+  setDesc2(data.desc2)
+  setPrix2(data.prix2)
+  setQte2(data.qte2)
+
+
 
    
 } else {
@@ -321,12 +400,13 @@ const reclamer=()=>{
     <View style={{marginTop:0,borderBottomWidth:1,borderLeftWidth:1,borderRightWidth:1,borderColor:"#dedede",backgroundColor:"#f13a11",paddingBottom:5,width:Dimensions.get('window').width - 8,borderRadius:30, alignSelf:"center",alignItems:"center",marginTop:-5,padding:5}}>
     <Text style={{padding:5,fontSize:16,color:"white",fontWeight:"700"}}>{service2}</Text> 
     </View>
+    <View style={{width:Dimensions.get("window").width,backgroundColor:"white",paddingBottom:10,paddingTop:10,flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingLeft:5,paddingRight:5,marginTop:10}}><Text style={{color:"black",fontWeight:"bold",letterSpacing:1,fontSize:17}}>Votre facture</Text><TouchableOpacity onPress={()=> navigation.navigate("Facture",{bon:bon,mobileFac:mobileFact,dateFac:dateFac,desc:desc,prix:prix,qte:qte,desc2:desc2,prix2:prix2,qte2:qte2})} style={{backgroundColor:"green",padding:5,borderRadius:4}}><Text style={{color:"white"}}>Facture</Text></TouchableOpacity></View>
 
     <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre coach</Text></View>
 
     <View style={styles.coach}>
     {coachImage.length > 5?<Image source={{uri:coachImage}} style={{width:"100%",height:250,borderRadius:0,margin:0,alignSelf:"center",marginBottom:5,borderWidth:2,borderColor:"#f13a11",resizeMode:"center"}}/>:<View></View>}
-<View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}><View><Text style={{fontSize:21,marginBottom:10,fontWeight:"bold",color:"white",marginLeft:10,marginTop:5}}>{coach}</Text></View><View style={{flexDirection:"row",alignItems:"center",marginRight:5}}><Text style={{color:"white",fontWeight:"bold",marginRight:3}}>(23)</Text><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Entypo name="star" size={19} color="#f5d222" /><Text style={{fontWeight:"bold",marginLeft:3,marginRight:3,color:"white"}}>4.6</Text></View></View>
+<View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between"}}><View><Text style={{fontSize:16.5,marginBottom:10,fontWeight:"bold",color:"white",marginLeft:10,marginTop:5}}>{coach}</Text></View><View style={{flexDirection:"row",alignItems:"center",marginRight:5}}><Text style={{color:"white",fontWeight:"bold",marginRight:3}}>(23)</Text><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={18} color="#f5d222" /><Entypo name="star" size={18} color="#f5d222" /><Text style={{fontWeight:"bold",marginLeft:3,marginRight:3,color:"white"}}>4.6</Text></View></View>
 <View style={{flexDirection:"row",marginLeft:3}}><Feather name="phone" size={24} color="white" /><Text style={{color:"white",fontSize:21,marginLeft:5}}>Téléphone:</Text></View>
      {resume2.length > 4 ?<Text style={{fontSize:16,marginBottom:10,color:"white",marginLeft:10}}>{resume2}</Text> : <View></View>} 
 <View style={{flexDirection:"row"}}><MaterialCommunityIcons name="file-account-outline" size={28} color="white" /><Text style={{color:"white",fontSize:21,marginLeft:5}}>Resumé:</Text></View>
@@ -417,7 +497,9 @@ const reclamer=()=>{
      </View>
      </Modal>
      <View style={{backgroundColor:"#f13a11",marginTop:15,borderWidth:1,borderColor:"white",borderTopRightRadius:12,borderTopLeftRadius:12}}>
-     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:15,alignSelf:"center"}}>DIAGNOSTIQUE</Text>
+     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:5,alignSelf:"center"}}>Votre test diagnostique</Text>
+     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:10,marginBottom:15,alignSelf:"center"}}>{date}</Text>
+
      <View>
      <View style={{flexDirection:"row",justifyContent:"space-around",marginBottom:0,width:Dimensions.get('window').width,borderWidth:3,borderColor:"black",borderBottomWidth:2,backgroundColor:"#d4d4d4"}}>
      <Pressable onPress={()=> setIsVisible10(true)}>{image2?<Image source={{uri:image2}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View ></View>}</Pressable>
@@ -439,9 +521,22 @@ const reclamer=()=>{
      <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{abdos}</Text>
      <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test ruffier dickson:</Text>
      <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{ruffier}</Text>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10,marginTop:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse grasse</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{grasse}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Visceral fat</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{fat}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Hydratation</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{hydra}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse musculaire</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{muscle}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse osseuse</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{osseuse}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>TMB</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{tmb} kcal</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>AMR</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{amr} kcal</Text></View>  
+
+
+
+
+
+
      </View>
-      <View>
-      <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",marginBottom:15}}>Votre planning</Text></View> 
+      <View style={{backgroundColor:"white",width:Dimensions.get("window").width,marginTop:15,padding:5,borderTopLeftRadius:15,borderTopRightRadius:15}}>
+      <View style={{marginTop:15}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",marginBottom:15}}>Votre planning</Text></View> 
     <View style={{width:Dimensions.get('window').width,backgroundColor:"white",borderWidth:2,borderColor:"#f13a11",borderTopLeftRadius:15,borderTopRightRadius:15,paddingBottom:20,marginBottom:10}}>
      
       <View style={{alignItems:"center",width:"100%"}}><Text style={{fontSize:19,fontWeight:"700",padding:5}}>Lundi</Text></View>
@@ -489,6 +584,7 @@ const reclamer=()=>{
     </View> 
 
     <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre programme de Nutrition</Text></View>
+    <View style={{marginTop:5}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:17,borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Plan reequilibrage alimentaire {kcal} kcal</Text></View>
     {nutrition? <View style={{backgroundColor:"#f13a11",width:"90%",justifyContent:"center",alignSelf:'center',marginTop:10,marginBottom:10,borderTopRightRadius:10,borderTopLeftRadius:10}}>
     <Text style={{color:"white",fontSize:19,fontWeight:"700",margin:10,marginBottom:0}}>Repas 1:</Text>
     <Text style={{color:"white",fontSize:16,fontWeight:"700",margin:10}}>{nutrition}</Text>
@@ -517,6 +613,14 @@ const reclamer=()=>{
     <Text style={{color:"white",fontSize:19,fontWeight:"700",margin:10,marginBottom:0}}>Repas 7:</Text>
     <Text style={{color:"white",fontSize:16,fontWeight:"700",margin:10}}>{nutrition7}</Text>
     </View> : <View></View>}
+
+    <View style={{backgroundColor:"white",width:Dimensions.get("window").width,marginTop:15,padding:5}}>
+    <Text style={{color:"white",backgroundColor:"red",padding:5,marginLeft:4,marginBottom:5,alignSelf:"flex-start",justifyContent:"flex-start",alignContent:"flex-start",fontSize:15,borderRadius:5,fontWeight:"bold"}}>Ce qui est interdit:</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits grie: Frites, Sandwich, Pizza, Hamburger, Sauces.</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits sucrés: Confiseries, Miel, Confiture, Biscuits, Patisseries, Chocolats.</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les féculents et féculents secs: Pates: Riz, Semoule, Pomme de terre, Blé, Lentiles, Petits pois, Mais, Olives.</Text>
+
+    </View> 
     </View>
     <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre test formative</Text></View>
     <View style={{marginTop:10}}>{formDate?<Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>{formDate}</Text>:<Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>---</Text>}</View>

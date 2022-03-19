@@ -18,6 +18,8 @@ import { AntDesign } from '@expo/vector-icons';
     const [isVisible3,setIsVisible3] = useState(false);
     const [isVisible8,setIsVisible8] = useState(false);
     const [isVisible9,setIsVisible9] = useState(false);
+    const [isVisible5,setIsVisible5] = useState(false);
+
 
   const [lundi,setLundi] = useState('')
   const [mardi,setMardi] = useState("")
@@ -33,12 +35,33 @@ import { AntDesign } from '@expo/vector-icons';
   const [vendrediT,setVendrediT] = useState("")
   const [samediT,setSamediT] = useState("") 
   const [dimancheT,setDimancheT] = useState("")
+  const [grasse,setGrasse] = useState(null)
+  const [fat,setFat] = useState(null)
+  const [hydra,setHydra] = useState(null)
+  const [muscle,setMuscle] = useState(null)
+  const [osseuse,setOsseuse] = useState(null)
+  const [tmb,setTmb] = useState(null)
+  const [amr,setAmr] = useState(null)
+  const [kcal,setKcal] = useState(null)
+
+  const [bon,setBon] = useState('');
+  const [mobileFact,setMobileFac] = useState("")
+  const [dateFac,setDateFac] = useState('')
+  const [desc,setDesc] = useState("")
+  const [prix,setPrix] = useState("");
+  const [qte,setQte] = useState("")
+  const [desc2,setDesc2] = useState("")
+  const [prix2,setPrix2] = useState("");
+  const [qte2,setQte2] = useState("")
+
+
 
 
     const [weight,setWeight] = useState('')
     const [coach,setCoach] = useState('')
     const {name,code,weight2,coach2,img,uid,uid2,cleintNum} = route.params;
     const [cleintNum2,setCleintNum2] = useState(0);
+    const [date,setDate] = useState("");
     const [fatique,setFatique] = useState("");
     const [souplesse,setSouplesse] = useState("");
     const [pomps,setPomps] = useState("");
@@ -321,6 +344,11 @@ import { AntDesign } from '@expo/vector-icons';
 
     const done5=()=>{
       const docRef = doc(db, "clients" , code);
+      if (date.length > 1) {
+        updateDoc(docRef, {
+          date:date,
+        }); 
+      }
       if (fatique.length > 1) {
         updateDoc(docRef, {
           fatique:fatique,
@@ -346,7 +374,90 @@ import { AntDesign } from '@expo/vector-icons';
           ruffier:ruffier
         }); 
       }
+      if (grasse != null) {
+        updateDoc(docRef, {
+          masseGrass:grasse
+        }); 
+      }
+      if (fat != null) {
+        updateDoc(docRef, {
+          visceralFat:fat
+        }); 
+      }if (hydra != null) {
+        updateDoc(docRef, {
+          hydration:hydra
+        }); 
+      }if (muscle != null) {
+        updateDoc(docRef, {
+          masseMusculaire:muscle
+        }); 
+      }if (osseuse != null) {
+        updateDoc(docRef, {
+          masseOsseuse:osseuse
+        }); 
+      }if (amr != null) {
+        updateDoc(docRef, {
+          amr:amr
+        }); 
+      }if (tmb != null) {
+        updateDoc(docRef, {
+          tmb:tmb
+        }); 
+      }
+      
         setIsVisible(false)
+    }
+
+    const done6=()=>{
+      const docRef = doc(db, "clients" , code);
+      if (bon.length > 2) {
+        updateDoc(docRef, {
+          bonFac:bon,
+        }); 
+      }
+      if (dateFac.length > 2) {
+        updateDoc(docRef, {
+          dateFac:dateFac,
+        }); 
+      }
+      if (mobileFact.length > 2) {
+        updateDoc(docRef, {
+          mobileFac:mobileFact,
+        }); 
+      }
+      if (qte != null) {
+        updateDoc(docRef, {
+          qte:qte,
+        }); 
+      }
+      if (desc.length > 2) {
+        updateDoc(docRef, {
+          descFac:desc,
+        }); 
+      }
+      if (prix.length > 1) {
+        updateDoc(docRef, {
+          prix:prix,
+        }); 
+      }
+
+      if (qte2 != null) {
+        updateDoc(docRef, {
+          qte:qte,
+        }); 
+      }
+      if (desc2.length > 2) {
+        updateDoc(docRef, {
+          descFac:desc,
+        }); 
+      }
+      if (prix2.length > 1) {
+        updateDoc(docRef, {
+          prix:prix,
+        }); 
+      }
+      
+        setIsVisible5(false)
     }
 
     const addNut=()=>{
@@ -387,6 +498,12 @@ import { AntDesign } from '@expo/vector-icons';
           nutrition7:nut7,
         }); 
        }
+
+       if (kcal != null) {
+        updateDoc(docRef, {
+          kcal:kcal
+        }); 
+      }
         setIsVisible9(false) 
       }
       const done8 =()=>{
@@ -439,7 +556,62 @@ import { AntDesign } from '@expo/vector-icons';
         <View style={styles.row1}><View><Text style={styles.row1Text}>Nutrition de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible9(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Test formative {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible2(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Planning de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible3(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
+        <View style={styles.row1}><View><Text style={styles.row1Text}>Facture de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible5(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>      
         <View style={styles.row1}><View><Text style={styles.row1Text}>Supprimer le client</Text></View><TouchableOpacity onPress={deleteAccount}><Text style={styles.row1Weight2}>Supprimer</Text></TouchableOpacity></View>
+
+
+
+
+        <Modal animationType="fade" visible={isVisible5} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
+        <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible5(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
+     <ScrollView style={{width:"100%"}}>
+     <View style={styles.modal}>
+     <Text style={styles.introModal}>Facture</Text>
+
+<View style={{width:Dimensions.get("window").width,alignItems:"center"}}>
+<Text>Bon de livraison:</Text>
+  <TextInput onChangeText={(e)=> setBon(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="Numero de bon"/>
+  <Text>Mobile:</Text>
+  <TextInput onChangeText={(e)=> setMobileFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="numero de telephone"/>
+  <Text>Date:</Text>
+  <TextInput onChangeText={(e)=> setDateFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="La date de facturation"/>
+</View>
+
+<View style={{width:Dimensions.get("window").width,alignItems:"center"}}>
+
+<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start"}}>
+
+  <Text>session 1</Text>
+  <Text>QTE:</Text>
+  <TextInput onChangeText={(e)=> setQte(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Quantite"/>
+  <Text>Prix:</Text>
+  <TextInput onChangeText={(e)=> setPrix(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Prix"/>
+  <Text>Description:</Text>
+  <TextInput onChangeText={(e)=> setDesc(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Description"/>
+</View>
+
+<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start"}}>
+
+  <Text>session 2</Text>
+  <Text>QTE 2:</Text>
+  <TextInput onChangeText={(e)=> setQte2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Quantite"/>
+  <Text>Prix 2:</Text>
+  <TextInput onChangeText={(e)=> setPrix2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Prix"/>
+  <Text>Description 2:</Text>
+  <TextInput onChangeText={(e)=> setDesc2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Description"/>
+</View>
+
+</View>
+
+     <TouchableOpacity onPress={done6} style={styles.login}><Text style={styles.loginText}>ADD</Text></TouchableOpacity>
+     </View>
+     </ScrollView>
+     </Modal>
+
+
+
+
+
 
         <Modal animationType="fade" visible={isVisible} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
         <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
@@ -454,8 +626,15 @@ import { AntDesign } from '@expo/vector-icons';
      <TouchableOpacity style={{backgroundColor:"green",padding:10,borderRadius:5,marginTop:10}} onPress={PickImage3}>{!imgSelected3?<Text style={{color:"white"}}>New Image</Text>:<View style={{flexDirection:"row",alignItems:"center"}}><Text style={{color:"white"}}>New Image</Text><AntDesign style={{marginLeft:5}} name="checkcircleo" size={24} color="white" /></View>}</TouchableOpacity> 
      <TouchableOpacity style={{backgroundColor:"green",padding:10,borderRadius:5,marginTop:10}} onPress={PickImage4}>{!imgSelected4?<Text style={{color:"white"}}>New Image</Text>:<View style={{flexDirection:"row",alignItems:"center"}}><Text style={{color:"white"}}>New Image</Text><AntDesign style={{marginLeft:5}} name="checkcircleo" size={24} color="white" /></View>}</TouchableOpacity> 
      </View>
+
      <View style={{backgroundColor:"#f13a11",width:Dimensions.get("window").width,marginTop:20,paddingBottom:20,borderTopRightRadius:15,borderTopLeftRadius:15}}>
+       
        <Text style={{alignSelf:"center",fontSize:20,fontWeight:"bold",marginTop:10,marginBottom:15,color:"white"}}>Test dyagnostiques</Text>
+       <View style={{margin:10}}>
+         <Text style={{fontWeight:"bold",fontSize:16,color:"white"}}>La date:</Text>
+         <TextInput onChangeText={(e)=>setDate(e)} multiline={true} style={styles.input} style={{borderColor:'black',borderWidth:1,width:"100%",padding:10,backgroundColor:"white",borderRadius:10,marginTop:8}} placeholder='jj/mm/aa'/>
+
+       </View>
        <View style={{margin:10}}>
          <Text style={{fontWeight:"bold",fontSize:16,color:"white"}}>Test de la fatique:</Text>
          <TextInput onChangeText={(e)=>setFatique(e)} multiline={true} style={styles.input} style={{borderColor:'black',borderWidth:1,width:"100%",padding:10,backgroundColor:"white",borderRadius:10,marginTop:8}} placeholder='Fatique test'/>
@@ -482,7 +661,16 @@ import { AntDesign } from '@expo/vector-icons';
 
        </View>
      </View>
- 
+<View style={{width:Dimensions.get("window").width,justifyContent:"center",alignSelf:"center",alignItems:"center",marginTop:10}}>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>Masse grasse</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setGrasse(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>%</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>Visceral fat</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setFat(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>%</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>Hydratation</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setHydra(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>%</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>Masse musculaire</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setMuscle(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>%</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>Masse osseuse</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setOsseuse(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>%</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>TMB</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setTmb(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>kcal</Text></View></View>
+     <View style={{width:"90%",flexDirection:"row",justifyContent:"space-between",backgroundColor:"#AAA7A7",padding:10,borderRadius:4,alignItems:"center",marginTop:10}}><Text style={{color:"white",fontWeight:"bold",letterSpacing:1}}>AMR</Text><View style={{flexDirection:"row",alignItems:"center"}}><TextInput onChangeText={(e)=> setAmr(e)} style={{fontSize:19,color:"white",alignSelf:"center",alignContent:"center",justifyContent:"center"}} keyboardType="numeric" placeholder="0"/><Text style={{fontSize:19,marginLeft:0,color:"white"}}>kcal</Text></View></View>
+
+</View>
      <TouchableOpacity onPress={done5} style={styles.login}><Text style={styles.loginText}>ADD</Text></TouchableOpacity>
      </View>
      </ScrollView>
@@ -543,6 +731,8 @@ import { AntDesign } from '@expo/vector-icons';
      <ScrollView style={{width:"100%"}}>
      <View style={styles.modal}>
      <Text style={styles.introModal}>Nutrition</Text>
+
+     <View style={{flexDirection:"row",alignItems:"center",marginBottom:20,backgroundColor:"#CFCFCE",padding:8,borderRadius:5}}><Text style={{fontWeight:"bold",marginRight:5,fontSize:19}}>Nombre de kcal</Text><TextInput onChangeText={(e)=> setKcal(e)} style={{fontSize:19}} keyboardType="numeric" placeholder="0"/></View>
      <Text style={{fontSize:18,fontWeight:"700",marginBottom:5}}>Repas 1</Text>
      <View style={{flexDirection:"row",justifyContent:"space-around",alignItems:"center"}}>
      <TextInput onChangeText={(e)=>setNut(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10,marginBottom:10}} placeholder='Nutrition'/>

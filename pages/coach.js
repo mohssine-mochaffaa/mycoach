@@ -190,6 +190,7 @@ import { getAuth, deleteUser } from "firebase/auth";
   city:"",
   serv:"No service yet!",
   rec:"",
+  date:"",
   fatique:"",
   souplesse:"",
   pompes:"",
@@ -218,6 +219,25 @@ import { getAuth, deleteUser } from "firebase/auth";
   vendrediT:"",
   samediT:"",
   dimenchT:"",
+  masseGrass:"0",
+  visceralFat:"0",
+  hydration:"0",
+  masseMusculaire:"0",
+  masseOsseuse:"0",
+  tmb:"0",
+  amr:"0",
+  kcal:0,
+  bonFac:"",
+  mobileFac:"",
+  dateFac:"",
+  qte:"",
+  prix:"",
+  descFac:"",
+  qte2:"",
+  prix2:"",
+  descFac2:"",
+
+  
 });
 
 setIsVisible(false)

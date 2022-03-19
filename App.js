@@ -7,6 +7,7 @@ import Client from './pages/client';
 import CoachDetail from './pages/coachDetail';
 import Admin from './pages/admin';
 import Reclamation from './pages/reclamtion';
+import Facture from './pages/facture';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,16 @@ export default function App() {
             fontWeight: 'bold',
           },
         }}  name="Client" component={Client} />
+        <Stack.Screen options={{
+          title: 'Facture',
+          headerStyle: {
+            backgroundColor: '#f13a11',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}  name="Facture" component={Facture} />
      <Stack.Screen options={{
           title: 'Details',
           headerStyle: {

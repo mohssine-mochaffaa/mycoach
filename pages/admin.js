@@ -56,6 +56,8 @@ import { AntDesign } from '@expo/vector-icons';
         const docRef = setDoc(doc(db, "coach" , user.uid), {
             name:name,
             resume:"",
+            resumePhone:"",
+            resumeExp:"",
             coachPass:coachPassword,
             coachEmail:coachEmail,
             img:"",
