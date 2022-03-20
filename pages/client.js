@@ -95,6 +95,7 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [desc2,setDesc2] = useState("")
   const [prix2,setPrix2] = useState("");
   const [qte2,setQte2] = useState("")
+  const [tva,setTva] = useState("")
 
 
    const [planning2,setPlanning2] = useState([]);
@@ -213,12 +214,13 @@ if (docSnap) {
   setBon(data.bonFac)
   setMobileFac(data.mobileFac)
   setDateFac(data.dateFac)
-  setDesc(data.desc)
+  setDesc(data.descFac)
   setPrix(data.prix)
   setQte(data.qte)
-  setDesc2(data.desc2)
+  setDesc2(data.descFac2)
   setPrix2(data.prix2)
   setQte2(data.qte2)
+  setTva(data.tva)
 
   
 } else {
@@ -274,12 +276,14 @@ if (docSnap) {
   setBon(data.bonFac)
   setMobileFac(data.mobileFac)
   setDateFac(data.dateFac)
-  setDesc(data.desc)
+  setDesc(data.descFac)
   setPrix(data.prix)
   setQte(data.qte)
-  setDesc2(data.desc2)
+  setDesc2(data.descFac2)
   setPrix2(data.prix2)
   setQte2(data.qte2)
+  setTva(data.tva)
+
 
 
 
@@ -349,12 +353,14 @@ if (docSnap) {
   setBon(data.bonFac)
   setMobileFac(data.mobileFac)
   setDateFac(data.dateFac)
-  setDesc(data.desc)
+  setDesc(data.descFac)
   setPrix(data.prix)
   setQte(data.qte) 
-  setDesc2(data.desc2)
+  setDesc2(data.descFac2)
   setPrix2(data.prix2)
   setQte2(data.qte2)
+  setTva(data.tva)
+
 
 
 
@@ -394,13 +400,14 @@ const reclamer=()=>{
     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",width:Dimensions.get('window').width,backgroundColor:"white"}}>
    <View style={{margin:5,marginLeft:15}}><MaterialCommunityIcons name="city-variant" size={26} color="#f13a11" /></View><Text style={{fontSize:18,margin:5,fontWeight:"",marginRight:12,color:"#6e6e6e"}}>{city}</Text>
     </View>
+    <View style={{width:Dimensions.get("window").width,backgroundColor:"white",paddingBottom:10,paddingTop:10,flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingLeft:5,paddingRight:5,marginTop:10}}><Text style={{color:"black",fontWeight:"bold",letterSpacing:1,fontSize:17}}>Votre facture</Text><TouchableOpacity onPress={()=> navigation.navigate("Facture",{bon:bon,mobileFac:mobileFact,dateFac:dateFac,desc:desc,prix:prix,qte:qte,desc2:desc2,prix2:prix2,qte2:qte2,tva:tva})} style={{backgroundColor:"green",padding:5,borderRadius:4}}><Text style={{color:"white"}}>Facture</Text></TouchableOpacity></View>
+
     </View> 
 
 
     <View style={{marginTop:0,borderBottomWidth:1,borderLeftWidth:1,borderRightWidth:1,borderColor:"#dedede",backgroundColor:"#f13a11",paddingBottom:5,width:Dimensions.get('window').width - 8,borderRadius:30, alignSelf:"center",alignItems:"center",marginTop:-5,padding:5}}>
     <Text style={{padding:5,fontSize:16,color:"white",fontWeight:"700"}}>{service2}</Text> 
     </View>
-    <View style={{width:Dimensions.get("window").width,backgroundColor:"white",paddingBottom:10,paddingTop:10,flexDirection:"row",justifyContent:"space-between",alignItems:"center",paddingLeft:5,paddingRight:5,marginTop:10}}><Text style={{color:"black",fontWeight:"bold",letterSpacing:1,fontSize:17}}>Votre facture</Text><TouchableOpacity onPress={()=> navigation.navigate("Facture",{bon:bon,mobileFac:mobileFact,dateFac:dateFac,desc:desc,prix:prix,qte:qte,desc2:desc2,prix2:prix2,qte2:qte2})} style={{backgroundColor:"green",padding:5,borderRadius:4}}><Text style={{color:"white"}}>Facture</Text></TouchableOpacity></View>
 
     <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre coach</Text></View>
 

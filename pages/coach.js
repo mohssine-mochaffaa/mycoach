@@ -236,6 +236,7 @@ import { getAuth, deleteUser } from "firebase/auth";
   qte2:"",
   prix2:"",
   descFac2:"",
+  tva:"",
 
   
 });

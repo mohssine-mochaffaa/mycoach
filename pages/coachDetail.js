@@ -49,10 +49,12 @@ import { AntDesign } from '@expo/vector-icons';
   const [dateFac,setDateFac] = useState('')
   const [desc,setDesc] = useState("")
   const [prix,setPrix] = useState("");
-  const [qte,setQte] = useState("")
+  const [qte,setQte] = useState(null)
   const [desc2,setDesc2] = useState("")
   const [prix2,setPrix2] = useState("");
-  const [qte2,setQte2] = useState("")
+  const [qte2,setQte2] = useState(null)
+  const [tva,setTva] = useState(null)
+
 
 
 
@@ -443,17 +445,22 @@ import { AntDesign } from '@expo/vector-icons';
 
       if (qte2 != null) {
         updateDoc(docRef, {
-          qte:qte,
+          qte2:qte2,
         }); 
       }
       if (desc2.length > 2) {
         updateDoc(docRef, {
-          descFac:desc,
+          descFac2:desc2,
         }); 
       }
       if (prix2.length > 1) {
         updateDoc(docRef, {
-          prix:prix,
+          prix2:prix2,
+        }); 
+      }
+      if (tva != null) {
+        updateDoc(docRef, {
+          tva:tva,
         }); 
       }
       
@@ -570,37 +577,41 @@ import { AntDesign } from '@expo/vector-icons';
 
 <View style={{width:Dimensions.get("window").width,alignItems:"center"}}>
 <Text>Bon de livraison:</Text>
-  <TextInput onChangeText={(e)=> setBon(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="Numero de bon"/>
+  <TextInput onChangeText={(e)=> setBon(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45,paddingLeft:5}} placeholder="Numero de bon"/>
   <Text>Mobile:</Text>
-  <TextInput onChangeText={(e)=> setMobileFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="numero de telephone"/>
+  <TextInput onChangeText={(e)=> setMobileFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45,paddingLeft:5}} placeholder="numero de telephone"/>
   <Text>Date:</Text>
-  <TextInput onChangeText={(e)=> setDateFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45}} placeholder="La date de facturation"/>
+  <TextInput onChangeText={(e)=> setDateFac(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"70%",height:45,paddingLeft:5}} placeholder="La date de facturation"/>
 </View>
 
 <View style={{width:Dimensions.get("window").width,alignItems:"center"}}>
 
-<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start"}}>
+<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start",marginTop:15}}>
 
-  <Text>session 1</Text>
+  <Text style={{fontSize:20,fontWeight:"bold"}}>session 1</Text>
   <Text>QTE:</Text>
-  <TextInput onChangeText={(e)=> setQte(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Quantite"/>
+  <TextInput keyboardType="numeric" onChangeText={(e)=> setQte(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Quantite"/>
   <Text>Prix:</Text>
-  <TextInput onChangeText={(e)=> setPrix(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Prix"/>
+  <TextInput keyboardType="numeric" onChangeText={(e)=> setPrix(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Prix"/>
   <Text>Description:</Text>
-  <TextInput onChangeText={(e)=> setDesc(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Description"/>
+  <TextInput multiline={true} onChangeText={(e)=> setDesc(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Description"/>
 </View>
 
-<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start"}}>
+<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start",marginTop:15}}>
 
-  <Text>session 2</Text>
+  <Text style={{fontSize:20,fontWeight:"bold"}}>session 2</Text>
   <Text>QTE 2:</Text>
-  <TextInput onChangeText={(e)=> setQte2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Quantite"/>
+  <TextInput keyboardType="numeric" onChangeText={(e)=> setQte2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Quantite 2"/>
   <Text>Prix 2:</Text>
-  <TextInput onChangeText={(e)=> setPrix2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Prix"/>
+  <TextInput keyboardType="numeric" onChangeText={(e)=> setPrix2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Prix 2"/>
   <Text>Description 2:</Text>
-  <TextInput onChangeText={(e)=> setDesc2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45}} placeholder="Description"/>
+  <TextInput multiline={true} onChangeText={(e)=> setDesc2(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Description 2"/>
 </View>
 
+<View style={{width:"70%",alignItems:"center",justifyContent:"flex-start",marginTop:15}}>
+  <Text>TVA:</Text>
+  <TextInput keyboardType="numeric" onChangeText={(e)=> setTva(e)} style={{backgroundColor:"white",borderWidth:1,borderColor:"green",width:"100%",height:45,paddingLeft:5}} placeholder="Tva"/>
+</View>
 </View>
 
      <TouchableOpacity onPress={done6} style={styles.login}><Text style={styles.loginText}>ADD</Text></TouchableOpacity>
