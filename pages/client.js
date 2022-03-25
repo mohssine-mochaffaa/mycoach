@@ -45,6 +45,8 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [isVisible11,setIsVisible11] = useState(false)
   const [isVisible12,setIsVisible12] = useState(false)
   const [isVisible13,setIsVisible13] = useState(false)
+  const [remarqueDate,setRemarqueDate] = useState("")
+
 
   const [refreshing,setRefreshing] = useState(false)
   const [num, setNum] = useState(0)
@@ -96,6 +98,7 @@ import {ref,uploadBytes , getDownloadURL} from "firebase/storage";
   const [prix2,setPrix2] = useState("");
   const [qte2,setQte2] = useState("")
   const [tva,setTva] = useState("")
+  const [remarque,setRemarque] = useState("")
 
 
    const [planning2,setPlanning2] = useState([]);
@@ -170,6 +173,7 @@ if (docSnap) {
   setImage3(data.img2)
   setImage4(data.img3)
   setImage5(data.img4)
+  setRemarque(data.remarque)
 
   setGrasse(data.masseGrass)
   setFat(data.visceralFat)
@@ -221,6 +225,7 @@ if (docSnap) {
   setPrix2(data.prix2)
   setQte2(data.qte2)
   setTva(data.tva)
+  setRemarqueDate(data.remarqueDate)
 
   
 } else {
@@ -283,6 +288,8 @@ if (docSnap) {
   setPrix2(data.prix2)
   setQte2(data.qte2)
   setTva(data.tva)
+  setRemarque(data.remarque)
+  setRemarqueDate(data.remarqueDate)
 
 
 
@@ -360,6 +367,9 @@ if (docSnap) {
   setPrix2(data.prix2)
   setQte2(data.qte2)
   setTva(data.tva)
+  setRemarque(data.remarque)
+  setRemarqueDate(data.remarqueDate)
+
 
 
 
@@ -381,7 +391,7 @@ const reclamer=()=>{
   return (
     <View style={styles.container}>
     
-    <ScrollView refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={refreshed}/>}>
+    <ScrollView style={{width:"100%"}} refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={refreshed}/>}>
     <View style={{borderBottomWidth:1,borderLeftWidth:1,borderRightWidth:1,borderColor:"#dedede",backgroundColor:"white",paddingBottom:15,width:Dimensions.get('window').width,borderRadius:22}}>
     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",width:Dimensions.get('window').width,backgroundColor:"white"}}>
       <Text style={{fontSize:18,margin:5,marginLeft:12,fontWeight:"bold"}}>{nom}</Text>
@@ -497,51 +507,74 @@ const reclamer=()=>{
   
      <Modal animationType="fade" visible={isVisible6} transparent={false} style={{justifyContent:"center",alignItems:"center"}}>
      <Pressable style={{width:30,padding:0,margin:11,borderRadius:8}} onPress={()=> setIsVisible6(false)}><MaterialIcons name="cancel" size={30} color="#ff5d00" /></Pressable>
-     <View style={{backgroundColor:"white",justifyContent:"center",alignItems:"center",flex:1}}>
+     <View style={{backgroundColor:"white",justifyContent:"center",alignItems:"center",flex:1}}>                                                        
        <Text style={{fontWeight:"bold",fontSize:20,marginBottom:10}}>Reclamer pour l'administration</Text>
        <TextInput onChangeText={(e)=>setReclame(e)} style={styles.input} multiline={true}/>
        <TouchableOpacity onPress={reclamer} style={{backgroundColor:"#f13a11",padding:8,alignSelf:"center",width:"70%",alignItems:"center",borderRadius:5}}><Text style={{color:"white"}}>Send</Text></TouchableOpacity>
      </View>
      </Modal>
-     <View style={{backgroundColor:"#f13a11",marginTop:15,borderWidth:1,borderColor:"white",borderTopRightRadius:12,borderTopLeftRadius:12}}>
-     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:5,alignSelf:"center"}}>Votre test diagnostique</Text>
-     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:10,marginBottom:15,alignSelf:"center"}}>{date}</Text>
+
+    
+     <View style={{marginTop:15,borderTopRightRadius:12,borderTopLeftRadius:12,width:Dimensions.get('window').width}}>
+     <Text style={{backgroundColor:"#f13a11",fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:5,alignSelf:"center",padding:3,paddingLeft:6,paddingRight:6}}>Votre test diagnostique <AntDesign style={{marginLeft:5}} name="filetext1" size={22} color="white" /></Text>
+     {date != "Vide"?<Text style={{backgroundColor:"#f13a11",fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:10,marginBottom:15,alignSelf:"center",padding:3,paddingLeft:6,paddingRight:6}}>{date}</Text>:<View></View>}
+
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,marginTop:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center"}}><Image source={require("../assets/grasse.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>Masse grasse</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{grasse}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/fat.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>Masse fat</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{fat}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/hydra.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>Hydratation</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{hydra}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/muscle.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>Masse musculaire</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{muscle}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/osseuse.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>Masse osseuse</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{osseuse}%</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/tbm.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>TMB</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{tmb} kcal</Text></View>
+     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:8,marginRight:8,marginBottom:10,backgroundColor:"white",padding:10,borderRadius:3}}><View style={{flexDirection:"row",alignItems:"center",}}><Image source={require("../assets/amr.jpeg")} style={{width:40,height:40,borderRadius:10,marginLeft:5}}/><Text style={{fontSize:19,color:"black",marginLeft:5}}>AMR</Text></View><Text style={{fontSize:19,color:"black",fontWeight:"bold"}}>{amr} kcal</Text></View>  
 
      <View>
-     <View style={{flexDirection:"row",justifyContent:"space-around",marginBottom:0,width:Dimensions.get('window').width,borderWidth:3,borderColor:"black",borderBottomWidth:2,backgroundColor:"#d4d4d4"}}>
+     <View style={{flexDirection:"row",justifyContent:"space-around",marginBottom:0,width:Dimensions.get('window').width,backgroundColor:"#d4d4d4"}}>
      <Pressable onPress={()=> setIsVisible10(true)}>{image2?<Image source={{uri:image2}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View ></View>}</Pressable>
      <Pressable onPress={()=> setIsVisible11(true)}>{image3?<Image source={{uri:image3}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View ></View>}</Pressable>
      </View> 
-     <View style={{flexDirection:"row",justifyContent:"space-around",borderWidth:3,borderColor:"black",borderTopWidth:1,backgroundColor:"#d4d4d4"}}>
+     <View style={{flexDirection:"row",justifyContent:"space-around",backgroundColor:"#d4d4d4"}}>
      <Pressable onPress={()=> setIsVisible12(true)}>{image4?<Image source={{uri:image4}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View></View>}</Pressable>
      <Pressable onPress={()=> setIsVisible13(true)}>{image5?<Image source={{uri:image5}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View ></View>}</Pressable>
      </View>
      </View>
-     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:15}}>LES TESTS DIAGNOSTIQUE:</Text>
-     <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test de la fatique:</Text>
-     <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{fatique}</Text> 
-     <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test de la souplesse:</Text>
-     <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{souplesse}</Text>
-     <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test des pompes:</Text>
-     <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{pomps}</Text>
-     <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test des abdos:</Text>
-     <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{abdos}</Text>
-     <Text style={{fontSize:18,margin:5,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test ruffier dickson:</Text>
-     <Text style={{marginLeft:15,marginRight:15,fontWeight:"bold",color:"#d6d6d6"}}>{ruffier}</Text>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10,marginTop:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse grasse</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{grasse}%</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Visceral fat</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{fat}%</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Hydratation</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{hydra}%</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse musculaire</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{muscle}%</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>Masse osseuse</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{osseuse}%</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>TMB</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{tmb} kcal</Text></View>
-     <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",marginLeft:5,marginRight:5,marginBottom:10}}><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>AMR</Text><Text style={{fontSize:19,color:"white",fontWeight:"bold"}}>{amr} kcal</Text></View>  
 
+     
+     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"black",marginTop:15,marginLeft:"5%"}}>LES TESTS DIAGNOSTIQUE:</Text>
 
-
-
+     <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:150,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/fatique.jpeg')}>
+       <Text style={{fontSize:19,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test de la fatique:</Text>
+       {fatique != "Vide"? <Text style={{fontWeight:"bold",color:"white"}}>{fatique}</Text>:<View></View>}
+       </ImageBackground>
+     </View> 
+     <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:150,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/souplesse.jpeg')}>
+       <Text style={{fontSize:19,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test de la souplesse:</Text>
+       {souplesse != "Vide"? <Text style={{fontWeight:"bold",color:"white"}}>{souplesse}</Text>:<View></View>}
+       </ImageBackground>
+     </View> 
+     <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:150,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/pompes.jpeg')}>
+       <Text style={{fontSize:19,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test des pompes:</Text>
+       {pomps != "Vide"? <Text style={{fontWeight:"bold",color:"white"}}>{pomps}</Text>:<View></View>}
+       </ImageBackground>
+     </View> 
+     <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:150,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/abdos.jpeg')}>
+       <Text style={{fontSize:19,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test des abdos:</Text>
+       {abdos != "Vide"? <Text style={{fontWeight:"bold",color:"white"}}>{abdos}</Text>:<View></View>}
+       </ImageBackground>
+     </View>
+     <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:150,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/dickson.jpeg')}>
+       <Text style={{fontSize:19,fontWeight:"bold",color:"white",marginTop:5,marginBottom:5}}>Votre test ruffier dickson:</Text>
+       {ruffier != "Vide"? <Text style={{fontWeight:"bold",color:"white"}}>{ruffier}</Text>:<View></View>}
+       </ImageBackground> 
+     </View>
 
 
      </View>
+
       <View style={{backgroundColor:"white",width:Dimensions.get("window").width,marginTop:15,padding:5,borderTopLeftRadius:15,borderTopRightRadius:15}}>
       <View style={{marginTop:15}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",marginBottom:15}}>Votre planning</Text></View> 
     <View style={{width:Dimensions.get('window').width,backgroundColor:"white",borderWidth:2,borderColor:"#f13a11",borderTopLeftRadius:15,borderTopRightRadius:15,paddingBottom:20,marginBottom:10}}>
@@ -590,8 +623,31 @@ const reclamer=()=>{
      </View>
     </View> 
 
-    <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre programme de Nutrition</Text></View>
-    <View style={{marginTop:5}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:17,borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Plan reequilibrage alimentaire {kcal} kcal</Text></View>
+
+
+
+
+
+
+    <View style={{width:"100%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:250,alignItems:"center",justifyContent:"center",position:"relative"}} imageStyle={{borderRadius:0}} source={require('../assets/nutrition.jpeg')}>
+       <Text style={{fontWeight:"bold",position:"absolute",top:"25%",fontSize:18}}>Programme de nutrition</Text> 
+       {remarqueDate != "Vide" ?<View style={{position:"absolute",top:"35%"}}><Text style={{color:"black",fontWeight:"bold"}}>{remarqueDate}</Text></View>:<View></View>}
+       <View style={{position:"absolute",top:"43%"}}><Text style={{color:"green",fontWeight:"bold",fontSize:20}}>{kcal} kcal</Text></View>
+       <View style={{position:"absolute",top:"55%",left:"20%",backgroundColor:"yellow",padding:2,borderRadius:5}}><Text style={{color:"black",fontWeight:"bold"}}>Les remarques:</Text></View>
+       {remarque != "Vide" ? <View style={{position:"absolute",top:"65%",left:"20%",width:"60%"}}><Text>{remarque}</Text></View>:<View></View>} 
+       </ImageBackground>
+     </View> 
+
+     <View style={{backgroundColor:"white",width:Dimensions.get("window").width,marginTop:15,padding:5}}>
+    <Text style={{color:"white",backgroundColor:"red",padding:5,marginLeft:4,marginBottom:5,alignSelf:"flex-start",justifyContent:"flex-start",alignContent:"flex-start",fontSize:15,borderRadius:5,fontWeight:"bold"}}>Ce qui est interdit:</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits grie: Frites, Sandwich, Pizza, Hamburger, Sauces.</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits sucrés: Confiseries, Miel, Confiture, Biscuits, Patisseries, Chocolats.</Text>
+    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les féculents et féculents secs: Pates: Riz, Semoule, Pomme de terre, Blé, Lentiles, Petits pois, Mais, Olives.</Text>
+
+    </View>
+
+
     {nutrition? <View style={{backgroundColor:"#f13a11",width:"90%",justifyContent:"center",alignSelf:'center',marginTop:10,marginBottom:10,borderTopRightRadius:10,borderTopLeftRadius:10}}>
     <Text style={{color:"white",fontSize:19,fontWeight:"700",margin:10,marginBottom:0}}>Repas 1:</Text>
     <Text style={{color:"white",fontSize:16,fontWeight:"700",margin:10}}>{nutrition}</Text>
@@ -621,24 +677,17 @@ const reclamer=()=>{
     <Text style={{color:"white",fontSize:16,fontWeight:"700",margin:10}}>{nutrition7}</Text>
     </View> : <View></View>}
 
-    <View style={{backgroundColor:"white",width:Dimensions.get("window").width,marginTop:15,padding:5}}>
-    <Text style={{color:"white",backgroundColor:"red",padding:5,marginLeft:4,marginBottom:5,alignSelf:"flex-start",justifyContent:"flex-start",alignContent:"flex-start",fontSize:15,borderRadius:5,fontWeight:"bold"}}>Ce qui est interdit:</Text>
-    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits grie: Frites, Sandwich, Pizza, Hamburger, Sauces.</Text>
-    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les produits sucrés: Confiseries, Miel, Confiture, Biscuits, Patisseries, Chocolats.</Text>
-    <Text style={{color:"red",fontWeight:"bold",marginLeft:5,marginRight:5}}>Tous les féculents et féculents secs: Pates: Riz, Semoule, Pomme de terre, Blé, Lentiles, Petits pois, Mais, Olives.</Text>
-
-    </View> 
+   
     </View>
-    <View style={{marginTop:30}}><Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>Votre test formative</Text></View>
-    <View style={{marginTop:10}}>{formDate?<Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>{formDate}</Text>:<Text style={{padding:12,backgroundColor:"#f13a11",color:"white",fontSize:19,fontWeight:"bold",borderRadius:5,justifyContent:"center",alignItems:"center",alignSelf:"center",}}>---</Text>}</View>
-
-
-    <View style={{backgroundColor:"#f13a11",marginTop:15,borderWidth:1,borderColor:"white",borderTopRightRadius:12,borderTopLeftRadius:12}}>
-    <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:0}}>Informations:</Text>
-     <Text style={{fontSize:17,margin:12,fontWeight:"bold",color:"white",marginTop:15,marginBottom:15}}>{form}</Text>
-     
-     <Text style={{fontSize:21,margin:10,fontWeight:"bold",color:"white",marginTop:15,marginBottom:15}}>IMAGES</Text>
-    
+    <View style={{marginTop:10}}></View>
+    <View style={{marginTop:10,}}>
+    <View style={{width:"90%",alignItems:"center",alignSelf:"center",marginBottom:15,borderColor:"white",borderWidth:1,borderRadius:9}}>
+       <ImageBackground style={{width:"100%",height:180,alignItems:"center"}} imageStyle={{borderRadius:8}} source={require('../assets/formative.jpeg')}>
+       <Text style={{color:"white",fontSize:22,fontWeight:"bold",justifyContent:"center",alignItems:"center",alignSelf:"center",marginTop:5}}>Votre test formative</Text>
+       {formDate != "Vide"? <Text style={{color:"white",fontSize:15,fontWeight:"bold",justifyContent:"center",alignItems:"center",alignSelf:"center",marginTop:2}}>{formDate}</Text>:<Text style={{color:"white",fontSize:16,fontWeight:"bold",justifyContent:"center",alignItems:"center",alignSelf:"center",marginTop:2}}>--/--/--</Text>}
+       {form != "Vide"? <Text style={{fontSize:17,margin:12,fontWeight:"bold",color:"white",marginTop:15,marginBottom:15}}>{form}</Text>:<View></View>} 
+       </ImageBackground>
+     </View>         
      <View>
      <View style={{flexDirection:"row",justifyContent:"space-around",marginBottom:0,width:Dimensions.get('window').width,borderWidth:3,borderColor:"black",borderBottomWidth:2,backgroundColor:"#d4d4d4"}}>
      <Pressable>{imagee2?<Image source={{uri:imagee2}} style={{width:Dimensions.get('window').width / 2,height:250,borderRadius:0,margin:0}}/>:<View ></View>}</Pressable>
@@ -654,7 +703,7 @@ const reclamer=()=>{
 
     
      <View style={{flexDirection:"row",alignItems:"center",justifyContent:"space-between",width:Dimensions.get('window').width,backgroundColor:"white",padding:10}}>
-   <View style={{margin:5,marginLeft:5}}><Text style={{fontWeight:"700",fontSize:15}}>Reclamation</Text></View><Pressable onPress={()=> setIsVisible6(true)} style={{backgroundColor:"#f13a11",padding:5,marginRight:5,borderRadius:5}}><Text style={{color:"white"}}>Réclamer</Text></Pressable>
+   <View style={{margin:5,marginLeft:5,width:"70%"}}><Text style={{fontWeight:"700",fontSize:15}}>Avez-vous des problemes dans les seances ou avec le coach? Vous pouvez contacter l'administration Quelle est votre evaluation de coach?</Text></View><Pressable onPress={()=> setIsVisible6(true)} style={{backgroundColor:"#f13a11",padding:5,marginRight:5,borderRadius:5}}><Text style={{color:"white"}}>Réclamer</Text></Pressable>
     </View>
     </ScrollView>
     </View>
@@ -666,6 +715,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#d4d4d4',
     alignItems: 'center',
+    width:Dimensions.get('window').width
     
   },
   row1:{

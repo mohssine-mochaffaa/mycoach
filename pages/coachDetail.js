@@ -86,6 +86,10 @@ import { AntDesign } from '@expo/vector-icons';
     const [imgSelected6,setImgSelected6] = useState(false)
     const [imgSelected7,setImgSelected7] = useState(false)
     const [imgSelected8,setImgSelected8] = useState(false)
+    const [remarque,setRemarque] = useState("")
+    const [remarqueDate,setRemarqueDate] = useState("")
+
+
  
     const handleDelete=()=>{
     
@@ -511,6 +515,16 @@ import { AntDesign } from '@expo/vector-icons';
           kcal:kcal
         }); 
       }
+      if (remarque != null) {
+        updateDoc(docRef, {
+          remarque:remarque
+        }); 
+      }
+      if (remarqueDate != null) {
+        updateDoc(docRef, {
+          remarqueDate:remarqueDate
+        }); 
+      }
         setIsVisible9(false) 
       }
       const done8 =()=>{
@@ -559,11 +573,11 @@ import { AntDesign } from '@expo/vector-icons';
         <View style={styles.row1}><View><Text style={styles.row1Text}>Nom</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{name}</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Mot de pass</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{code}</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Coach</Text></View><TouchableOpacity><Text style={styles.row1Weight}>{coach2}</Text></TouchableOpacity></View>
+         <View style={styles.row1}><View><Text style={styles.row1Text}>Facture de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible5(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>      
         <View style={styles.row1}><View><Text style={styles.row1Text}>Diagnostique de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
+        <View style={styles.row1}><View><Text style={styles.row1Text}>Planning de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible3(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Nutrition de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible9(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
         <View style={styles.row1}><View><Text style={styles.row1Text}>Test formative {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible2(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
-        <View style={styles.row1}><View><Text style={styles.row1Text}>Planning de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible3(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>
-        <View style={styles.row1}><View><Text style={styles.row1Text}>Facture de {name}</Text></View><TouchableOpacity onPress={()=> setIsVisible5(true)} style={styles.row1But}><Text style={styles.row1ButText}>+</Text></TouchableOpacity></View>      
         <View style={styles.row1}><View><Text style={styles.row1Text}>Supprimer le client</Text></View><TouchableOpacity onPress={deleteAccount}><Text style={styles.row1Weight2}>Supprimer</Text></TouchableOpacity></View>
 
 
@@ -744,6 +758,9 @@ import { AntDesign } from '@expo/vector-icons';
      <Text style={styles.introModal}>Nutrition</Text>
 
      <View style={{flexDirection:"row",alignItems:"center",marginBottom:20,backgroundColor:"#CFCFCE",padding:8,borderRadius:5}}><Text style={{fontWeight:"bold",marginRight:5,fontSize:19}}>Nombre de kcal</Text><TextInput onChangeText={(e)=> setKcal(e)} style={{fontSize:19}} keyboardType="numeric" placeholder="0"/></View>
+     <View><TextInput onChangeText={(e)=>setRemarque(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:200,padding:10,marginBottom:10}} placeholder='Remarque de nutrition' maxLength={75}/></View> 
+     <View><TextInput onChangeText={(e)=>setRemarqueDate(e)} style={styles.input} style={{borderColor:'red',borderWidth:1,width:200,padding:10,marginBottom:10}} placeholder='Date de nutrition'/></View> 
+
      <Text style={{fontSize:18,fontWeight:"700",marginBottom:5}}>Repas 1</Text>
      <View style={{flexDirection:"row",justifyContent:"space-around",alignItems:"center"}}>
      <TextInput onChangeText={(e)=>setNut(e)} multiline={true} style={styles.input} style={{borderColor:'red',borderWidth:1,width:"70%",padding:10,marginBottom:10}} placeholder='Nutrition'/>

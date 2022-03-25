@@ -3,7 +3,6 @@ import {useState} from "react"
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import img1 from "../assets/coachApp2.jpeg"
 
 
 const Facture=({route})=> {
@@ -20,8 +19,9 @@ const Facture=({route})=> {
   </head>
   <body style="border:1px solid #43502F;width:98.5%">
   <center>
-  <img style="width:70px;height:70px" src="./coachApp.jpeg"/>
-  <h1 style="color:#43502F;letter-spacing:2px;margin-top:80px">VOTRE SERVICE SPORTIF</h1>
+  <img src="https://firebasestorage.googleapis.com/v0/b/mycoach-9ddff.appspot.com/o/imageImg.jpg?alt=media&token=50aaf4fe-8212-45f4-b5b2-1b19f434e320" style="width:70px;margin-top:40px"/>
+  <h2 style="color:#43502F;letter-spacing:1px;font-size:20px">SPORTS FINEST</h2>
+  <h1 style="color:#43502F;letter-spacing:2px;margin-top:60px">VOTRE SERVICE SPORTIF</h1>
   </center>
   <div>
   <h2 style="text-align:right;color:#43502F;letter-spacing:2px;margin-top:40px;margin-right:15px">BON DE LIVRAISON N° ${bon}</h2>
